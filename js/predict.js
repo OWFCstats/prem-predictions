@@ -199,7 +199,9 @@ async function submit() {
 async function renderMiniBoard() {
   const locked = await isLocked();
   if (!locked) {
-    el.mini.innerHTML = '<div class="empty">Predictions are private until the season starts.</div>';
+    const names = await loadPlayerNames();
+    const txt = names.length === 0 ? 'Nobody entered yet.' : names.length + ' entered so far.';
+    el.mini.innerHTML = '<div class="empty">' + txt + '</div>';
     return;
   }
 
