@@ -12,7 +12,7 @@ create table if not exists app_config (
   value text not null
 );
 insert into app_config (key, value)
-values ('season_lock_at', '2026-08-14T19:00:00Z')
+values ('season_lock_at', '2026-08-21T19:00:00Z')
 on conflict (key) do nothing;
 
 -- RLS matters here: a public-schema table with RLS switched OFF is fully
