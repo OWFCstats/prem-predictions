@@ -31,8 +31,8 @@ window.addEventListener('hashchange', route);
 start();
 
 async function start() {
-  const { data } = await db.from('predictions').select('player_name').order('player_name');
-  allPlayers = (data || []).map(r => r.player_name);
+  const names = await loadPlayerNames();
+  allPlayers = names;
   route();
 }
 
