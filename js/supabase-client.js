@@ -35,14 +35,18 @@ async function loadTeams() {
   return data;
 }
 
+let _lockTimeCache = null;
+
 async function getLockTime() {
+  if (_lockTimeCache) return _lockTimeCache;
   const { data, error } = await db
     .from('app_config')
     .select('value')
     .eq('key', 'season_lock_at')
     .single();
   if (error || !data) return null;
-  return new Date(data.value);
+  _lockTimeCache = new Date(data.value);
+  return _lockTimeCache;
 }
 
 async function isLocked() {
