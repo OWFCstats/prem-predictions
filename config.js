@@ -6,5 +6,5 @@
 // ship in a static site. Access control lives in the RLS policies in
 // supabase/schema.sql, not in keeping this key secret.
 
-const SUPABASE_URL = "https://zntxtpaqteylfrklhyuh.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudHh0cGFxdGV5bGZya2xoeXVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDc3NTUsImV4cCI6MjEwMjYyMzc1NX0.WmILbwpiZSfOGXaMDYM9-jgAY8CqNM4nYUneuc0Xq_Q";
+const SUPABASE_URL = "https://YOUR-PROJECT-REF.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR-ANON-PUBLIC-KEY";

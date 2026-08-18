@@ -66,6 +66,13 @@ function renderBoard(target, predictions, live, rowsFilter) {
 if (document.getElementById('board')) {
   (async function () {
     const target = document.getElementById('board');
+    const locked = await isLocked();
+
+    if (!locked) {
+      target.innerHTML = '<div class="empty">Predictions are private until the season starts.</div>';
+      return;
+    }
+
     const { predictions, live, error } = await fetchBoardData();
 
     if (error) {

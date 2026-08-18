@@ -197,6 +197,12 @@ async function submit() {
 }
 
 async function renderMiniBoard() {
+  const locked = await isLocked();
+  if (!locked) {
+    el.mini.innerHTML = '<div class="empty">Predictions are private until the season starts.</div>';
+    return;
+  }
+
   const [preds, live] = await Promise.all([
     db.from('predictions').select('player_name, predicted_order'),
     db.from('live_table').select('team_code, position')
