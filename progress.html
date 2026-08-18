@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress · Prem Predictor 26/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <strong>Prem Predictor</strong>
+    <span>26/27</span>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Predict</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="progress.html">Progress</a>
+    <a href="leagues.html">Leagues</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Season progress</h1>
+  <p class="lede">
+    Every player's score, gameweek by gameweek. Remember the scoring runs
+    backwards — <strong>a line heading down is a player getting closer to
+    the real table</strong>.
+  </p>
+
+  <div class="card">
+    <div class="chart-box">
+      <canvas id="chart"></canvas>
+    </div>
+    <div id="chart-empty" class="empty" hidden>
+      No gameweeks saved yet. The chart fills in once the first week's scores
+      are recorded.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Week by week</h2>
+    <div id="table-out"><div class="empty">Loading…</div></div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/progress.js"></script>
+</body>
+</html>

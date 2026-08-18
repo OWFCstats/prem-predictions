@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leagues · Prem Predictor 26/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <strong>Prem Predictor</strong>
+    <span>26/27</span>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Predict</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="progress.html">Progress</a>
+    <a href="leagues.html">Leagues</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- List + create view -->
+  <section id="list-view">
+    <h1>Mini leagues</h1>
+    <p class="lede">
+      Everyone plays the overall leaderboard. Leagues just filter it down to
+      a smaller group — work, five-a-side, the group chat.
+    </p>
+
+    <div id="list-msg" class="msg" hidden></div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h2>Start a league</h2>
+        <div class="field">
+          <label for="new-league">League name</label>
+          <input type="text" id="new-league" maxlength="50" placeholder="e.g. The Sunday League">
+        </div>
+        <div class="field">
+          <label for="creator">Your name</label>
+          <input type="text" id="creator" maxlength="40" placeholder="Must match your prediction name">
+        </div>
+        <button class="primary" id="create-btn">Create league</button>
+      </div>
+
+      <div class="card">
+        <h2>All leagues</h2>
+        <ul class="league-list" id="league-list">
+          <li class="empty">Loading…</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Single league view -->
+  <section id="league-view" hidden>
+    <p><button class="ghost small" id="back-btn">← All leagues</button></p>
+    <h1 id="league-title">League</h1>
+    <p class="lede" id="league-sub"></p>
+
+    <div id="league-msg" class="msg" hidden></div>
+
+    <div class="card">
+      <div id="league-board"><div class="empty">Loading…</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Add someone</h2>
+      <p class="hint" style="margin-bottom:12px">
+        They need to have entered a prediction first — pick them from the list.
+      </p>
+      <div class="field">
+        <label for="add-player">Player</label>
+        <select id="add-player"></select>
+      </div>
+      <button id="add-btn">Add to league</button>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/leaderboard.js"></script>
+<script src="js/leagues.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · Prem Predictor 26/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <strong>Prem Predictor</strong>
+    <span>26/27</span>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Predict</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="progress.html">Progress</a>
+    <a href="leagues.html">Leagues</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Sign in -->
+  <section id="login-view" hidden>
+    <h1>Admin</h1>
+    <p class="lede">Sign in to update the live table and record the week's scores.</p>
+
+    <div id="login-msg" class="msg" hidden></div>
+
+    <div class="card" style="max-width:420px">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password">
+      </div>
+      <button class="primary" id="login-btn">Sign in</button>
+    </div>
+  </section>
+
+  <!-- Admin panel -->
+  <section id="admin-view" hidden>
+    <h1>Update the week</h1>
+    <p class="lede">
+      Set where every club currently sits, then save the week so it lands on
+      the progress chart.
+    </p>
+
+    <div id="admin-msg" class="msg" hidden></div>
+
+    <div class="card">
+      <h2>Live table</h2>
+      <p class="hint" style="margin-bottom:14px">
+        Drag to match the real table, or use the arrows. Position is just the
+        row order — top row is 1st.
+      </p>
+      <ol class="ranker" id="live-ranker"></ol>
+      <div class="row-actions">
+        <button class="primary" id="save-table-btn">Save live table</button>
+        <button class="ghost" id="reload-btn">Discard changes</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Record the week</h2>
+      <p class="hint" style="margin-bottom:14px">
+        Takes everyone's score as it stands right now and pins it to a
+        gameweek. Save the live table first. Re-saving the same gameweek
+        overwrites it.
+      </p>
+      <div class="field" style="max-width:200px">
+        <label for="gameweek">Gameweek</label>
+        <input type="number" id="gameweek" min="1" max="38" value="1">
+      </div>
+      <button id="snapshot-btn">Save this week's scores</button>
+      <div id="snapshot-preview" style="margin-top:18px"></div>
+    </div>
+
+    <p><button class="ghost small" id="logout-btn">Sign out</button></p>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prem Predictor 26/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <strong>Prem Predictor</strong>
+    <span>26/27</span>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Predict</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="progress.html">Progress</a>
+    <a href="leagues.html">Leagues</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+
+  <div id="loading" class="empty">Loading…</div>
+
+  <!-- Shown before the season locks -->
+  <section id="open-state" hidden>
+    <h1>Call the table</h1>
+    <p class="lede">
+      Rank all 20 clubs from 1st to 20th. When the season ends, you score the
+      distance between each guess and where the club actually finished.
+    </p>
+
+    <div class="rule-strip">
+      Every place you're out by is <b>one point</b>. Nail a position exactly and
+      it's <b>zero</b>. <b>Lowest score wins</b> — so you're aiming for a low
+      number all season, not a high one.
+      <div class="locked-note" id="lock-note"></div>
+    </div>
+
+    <div id="form-msg" class="msg" hidden></div>
+
+    <div class="card">
+      <div class="field">
+        <label for="player-name">Your name</label>
+        <input type="text" id="player-name" maxlength="40" placeholder="e.g. Owen G" autocomplete="name">
+        <p class="hint">This is how you'll show up on the leaderboard. One entry per person.</p>
+      </div>
+    </div>
+
+    <h2>Your table</h2>
+    <p class="hint" style="margin-bottom:12px">
+      Drag a club to move it, or use the arrows. Green edge = top four,
+      red edge = relegation.
+    </p>
+
+    <ol class="ranker" id="ranker"></ol>
+
+    <button class="primary" id="submit-btn">Lock in my table</button>
+    <p class="locked-note">
+      Once you submit, that's it — predictions can't be edited or resubmitted.
+    </p>
+  </section>
+
+  <!-- Shown after the season locks -->
+  <section id="locked-state" hidden>
+    <h1>Predictions are locked</h1>
+    <p class="lede">
+      The 26/27 tables went in before kickoff and can't be changed. Here's how
+      everyone's doing right now — lowest score leads.
+    </p>
+    <div id="mini-board"></div>
+    <p style="margin-top:18px">
+      <a href="leaderboard.html"><button class="ghost">See the full leaderboard</button></a>
+    </p>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/predict.js"></script>
+</body>
+</html>

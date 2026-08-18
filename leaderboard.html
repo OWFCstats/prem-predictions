@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaderboard · Prem Predictor 26/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <strong>Prem Predictor</strong>
+    <span>26/27</span>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Predict</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="progress.html">Progress</a>
+    <a href="leagues.html">Leagues</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Overall leaderboard</h1>
+  <p class="lede">
+    Everyone who entered, scored against the live table as it stands.
+    Lowest total is winning.
+  </p>
+
+  <div class="stat-line" id="stats" hidden>
+    <div class="stat"><b id="stat-players">–</b><span>Players</span></div>
+    <div class="stat"><b id="stat-best">–</b><span>Best score</span></div>
+    <div class="stat"><b id="stat-spread">–</b><span>Best to worst</span></div>
+  </div>
+
+  <div class="card">
+    <div id="board"><div class="empty">Loading…</div></div>
+  </div>
+
+  <p class="hint">
+    The strip on each row is one bar per club — taller means further off,
+    green means called it exactly.
+  </p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/leaderboard.js"></script>
+</body>
+</html>
