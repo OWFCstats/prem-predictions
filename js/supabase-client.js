@@ -74,6 +74,11 @@ function hideMsg(el) {
   if (el) el.hidden = true;
 }
 
+async function loadPlayerNames() {
+  const { data } = await db.from('predictions').select('player_name').order('player_name');
+  return (data || []).map(r => r.player_name);
+}
+
 /* Marks the current page in the nav. */
 function markNav() {
   const here = location.pathname.split('/').pop() || 'index.html';
