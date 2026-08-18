@@ -111,22 +111,6 @@ async function openLeague(id) {
   hideMsg(L.leagueMsg);
   L.board.innerHTML = '<div class="empty">Loading…</div>';
 
-  const locked = await isLocked();
-  if (!locked) {
-    L.board.innerHTML = '<div class="empty">Predictions are private until the season starts.</div>';
-    const { data: lg, error } = await db
-      .from('leagues')
-      .select('id, name, created_by')
-      .eq('id', id)
-      .single();
-    if (!error && lg) {
-      currentLeague = lg;
-      L.title.textContent = lg.name;
-      L.sub.textContent = 'Started by ' + lg.created_by;
-    }
-    return;
-  }
-
   const { data: lg, error } = await db
     .from('leagues')
     .select('id, name, created_by')
@@ -153,8 +137,13 @@ async function openLeague(id) {
     ? 'Started by ' + lg.created_by + ' · 1 player'
     : 'Started by ' + lg.created_by + ' · ' + names.length + ' players';
 
-  const { predictions, live } = await fetchBoardData();
-  renderBoard(L.board, predictions, live, names);
+  const locked = await isLocked();
+  if (!locked) {
+    L.board.innerHTML = '<div class="empty">Predictions are private until the season starts.</div>';
+  } else {
+    const { predictions, live } = await fetchBoardData();
+    renderBoard(L.board, predictions, live, names);
+  }
 
   const available = allPlayers.filter(p => !names.includes(p));
   L.addSelect.innerHTML = available.length
