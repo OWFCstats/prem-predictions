@@ -69,7 +69,18 @@ if (document.getElementById('board')) {
     const locked = await isLocked();
 
     if (!locked) {
-      target.innerHTML = '<div class="empty">Predictions are private until the season starts.</div>';
+      const names = await loadPlayerNames();
+      if (names.length === 0) {
+        target.innerHTML = '<div class="empty">No one has entered yet.</div>';
+      } else {
+        target.innerHTML =
+          '<p class="hint" style="margin:0 0 12px">Predictions are hidden until the season starts — ' +
+          'here\'s who\'s entered so far.</p>' +
+          '<div class="table-wrap"><table><thead><tr><th>#</th><th>Player</th></tr></thead><tbody>' +
+          names.map((n, i) => '<tr><td class="rank">' + (i + 1) + '</td><td class="player">' +
+            escapeHTML(n) + '</td></tr>').join('') +
+          '</tbody></table></div>';
+      }
       return;
     }
 
