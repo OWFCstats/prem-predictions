@@ -186,23 +186,30 @@ function wireDrag() {
   A.ranker.addEventListener('pointercancel', end);
 }
 
-async function saveLiveTable() {
-  hideMsg(A.adminMsg);
+/* Reads whatever order is currently on screen and upserts it to live_table.
+   Shared by the two save actions so the snapshot can never drift from what
+   the ranker last showed. */
+async function persistLiveTable() {
   const rows = [...A.ranker.children].map((li, i) => ({
     team_code: li.dataset.code,
     position: i + 1
   }));
 
   if (rows.length !== 20) {
-    showMsg(A.adminMsg, 'Expected 20 clubs but found ' + rows.length +
-      '. Check the teams table is seeded.', 'error');
-    return;
+    return { error: { message: 'Expected 20 clubs but found ' + rows.length +
+      '. Check the teams table is seeded.' } };
   }
 
+  const { error } = await db.from('live_table').upsert(rows, { onConflict: 'team_code' });
+  return { error, rows };
+}
+
+async function saveLiveTable() {
+  hideMsg(A.adminMsg);
   A.saveBtn.disabled = true;
   A.saveBtn.textContent = 'Saving…';
 
-  const { error } = await db.from('live_table').upsert(rows, { onConflict: 'team_code' });
+  const { error } = await persistLiveTable();
 
   A.saveBtn.disabled = false;
   A.saveBtn.textContent = 'Save live table';
@@ -225,23 +232,22 @@ async function saveSnapshot() {
     return;
   }
 
-  const [preds, live] = await Promise.all([
-    db.from('predictions').select('player_name, predicted_order'),
-    db.from('live_table').select('team_code, position')
-  ]);
+  /* Always persist the on-screen order first, so recording a week can never
+     leave live_table (and the next page load) out of sync with the ranker. */
+  const { error: liveError, rows: liveRows } = await persistLiveTable();
+  if (liveError) {
+    showMsg(A.adminMsg, 'Couldn\'t save the live table: ' + liveError.message, 'error');
+    return;
+  }
+
+  const preds = await db.from('predictions').select('player_name, predicted_order');
 
   if (!preds.data || preds.data.length === 0) {
     showMsg(A.adminMsg, 'No predictions to score yet.', 'error');
     return;
   }
 
-  const board = buildLeaderboard(preds.data, live.data || []);
-
-  if (board.teamsRanked < 20) {
-    showMsg(A.adminMsg, 'Only ' + board.teamsRanked +
-      ' of 20 clubs are placed. Save a full live table before recording the week.', 'error');
-    return;
-  }
+  const board = buildLeaderboard(preds.data, liveRows);
 
   if (!confirm('Save gameweek ' + gw + ' scores for ' + board.rows.length + ' players?')) return;
 
