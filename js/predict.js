@@ -225,7 +225,7 @@ async function renderMiniBoard() {
   const rows = board.rows.slice(0, 5).map(r =>
     '<tr' + (r.rank === 1 ? ' class="leader"' : '') + '>' +
       '<td class="rank">' + r.rank + '</td>' +
-      '<td class="player">' + escapeHTML(r.player_name) + '</td>' +
+      '<td class="player">' + playerLink(r.player_name) + '</td>' +
       '<td class="score">' + r.total + '</td>' +
     '</tr>'
   ).join('');
@@ -234,9 +234,4 @@ async function renderMiniBoard() {
     '<div class="card"><div class="table-wrap"><table>' +
     '<thead><tr><th>#</th><th>Player</th><th style="text-align:right">Points</th></tr></thead>' +
     '<tbody>' + rows + '</tbody></table></div></div>';
-}
-
-function escapeHTML(s) {
-  return String(s).replace(/[&<>"']/g, c =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }

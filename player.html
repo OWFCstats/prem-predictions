@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Player · Prem Predictor 26/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <strong>Prem Predictor</strong>
+    <span>26/27</span>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Predict</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="progress.html">Progress</a>
+    <a href="leagues.html">Leagues</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+  <p class="hint"><a href="leaderboard.html">← Back to leaderboard</a></p>
+  <h1 id="player-title">Loading…</h1>
+  <p class="lede" id="player-sub"></p>
+
+  <div class="stat-line" id="stats" hidden>
+    <div class="stat"><b id="stat-total">–</b><span>Points off</span></div>
+    <div class="stat"><b id="stat-exact">–</b><span>Exact hits</span></div>
+  </div>
+
+  <div class="card">
+    <div id="player-board"><div class="empty">Loading…</div></div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/player.js"></script>
+</body>
+</html>

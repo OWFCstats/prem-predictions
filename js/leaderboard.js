@@ -1,10 +1,5 @@
 /* Overall leaderboard. renderBoard() is shared with the leagues page. */
 
-function escapeHTML(s) {
-  return String(s).replace(/[&<>"']/g, c =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-
 async function fetchBoardData() {
   const [preds, live] = await Promise.all([
     db.from('predictions').select('player_name, predicted_order'),
@@ -47,7 +42,7 @@ function renderBoard(target, predictions, live, rowsFilter) {
   const rows = board.rows.map(r =>
     '<tr' + (r.rank === 1 ? ' class="leader"' : '') + '>' +
       '<td class="rank">' + r.rank + '</td>' +
-      '<td class="player">' + escapeHTML(r.player_name) + '</td>' +
+      '<td class="player">' + playerLink(r.player_name) + '</td>' +
       '<td><span class="strip">' + stripHTML(r.perTeam) + '</span></td>' +
       '<td class="score">' + r.total + '</td>' +
     '</tr>'
@@ -78,7 +73,7 @@ if (document.getElementById('board')) {
           'here\'s who\'s entered so far.</p>' +
           '<div class="table-wrap"><table><thead><tr><th>#</th><th>Player</th></tr></thead><tbody>' +
           names.map((n, i) => '<tr><td class="rank">' + (i + 1) + '</td><td class="player">' +
-            escapeHTML(n) + '</td></tr>').join('') +
+            playerLink(n) + '</td></tr>').join('') +
           '</tbody></table></div>';
       }
       return;

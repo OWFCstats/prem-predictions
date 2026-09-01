@@ -6,11 +6,6 @@ const LINE_COLOURS = [
   '#BB6BD9', '#F2C94C'
 ];
 
-function esc(s) {
-  return String(s).replace(/[&<>"']/g, c =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-
 (async function () {
   const tableOut = document.getElementById('table-out');
   const emptyBox = document.getElementById('chart-empty');
@@ -23,7 +18,7 @@ function esc(s) {
 
   if (error) {
     tableOut.innerHTML = '<div class="empty">Couldn\'t load progress: ' +
-      esc(error.message) + '</div>';
+      escapeHTML(error.message) + '</div>';
     canvas.hidden = true;
     emptyBox.hidden = false;
     return;
@@ -57,7 +52,7 @@ function esc(s) {
       const v = lookup.get(name).get(w);
       return '<td style="text-align:right">' + (v === undefined ? '–' : v) + '</td>';
     }).join('');
-    return '<tr><td class="player">' + esc(name) + '</td>' + cells + '</tr>';
+    return '<tr><td class="player">' + playerLink(name) + '</td>' + cells + '</tr>';
   }).join('');
 
   tableOut.innerHTML = '<div class="table-wrap"><table><thead>' + head +
