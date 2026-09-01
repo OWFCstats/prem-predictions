@@ -79,6 +79,16 @@ async function loadPlayerNames() {
   return (data || []).map(r => r.player_name);
 }
 
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/* Links a player's name through to their individual prediction page. */
+function playerLink(name) {
+  return '<a href="player.html?name=' + encodeURIComponent(name) + '">' + escapeHTML(name) + '</a>';
+}
+
 /* Marks the current page in the nav. */
 function markNav() {
   const here = location.pathname.split('/').pop() || 'index.html';
